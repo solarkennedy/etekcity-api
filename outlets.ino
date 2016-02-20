@@ -12,7 +12,7 @@ static BufferFiller bfill;  // used as cursor while filling the buffer
 // ethernet mac address - must be unique on your network
 static byte mymac[] = { 0x74, 0x69, 0x69, 0x2D, 0x30, 0x31 };
 
-byte Ethernet::buffer[1000]; // tcp/ip send and receive buffer
+byte Ethernet::buffer[850]; // tcp/ip send and receive buffer
 
 void setup() {
   Serial.begin(115200);

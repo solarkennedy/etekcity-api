@@ -23,7 +23,6 @@ static void homePage(BufferFiller& buf) {
   buf.emit_p(
     PSTR(
       "$F\r\n"
-      "<title>EtekCity Light Controller</title>"
       "<form>"
       "<table border='1'><caption>Remote 1414</caption>"
     ), okHeader
@@ -31,11 +30,11 @@ static void homePage(BufferFiller& buf) {
   for (byte i = 1; i <= 5; ++i) {
     buf.emit_p(
       PSTR(
-        "  <tr>"
-        "    <td><input type='submit' name='$D' value='On'></td>"
-        "    <td>$D</td>    "
-        "    <td><input type='submit' name='$D' value='Off'></td>"
-        "  </tr>"
+        "<tr>"
+        "<td><input type='submit' name='$D' value='On'></td>"
+        "<td>$D</td>    "
+        "<td><input type='submit' name='$D' value='Off'></td>"
+        "</tr>"
       ), i, i, i);
   }
   buf.emit_p(
@@ -72,6 +71,7 @@ static void apiPage(const char* data, BufferFiller& buf) {
   buf.emit_p(
     PSTR(
       "$F\r\n"
+      "<meta http-equiv='refresh' content='5;URL=/'>"
       "<title>API Request</title>"
       "Requested outlet: $D <br>"
       "Sending code: $L<br>"
@@ -83,6 +83,4 @@ static void apiPage(const char* data, BufferFiller& buf) {
       "</html>"
     ));
 }
-
-
 
