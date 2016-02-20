@@ -24,8 +24,6 @@ static void homePage(BufferFiller& buf) {
     PSTR(
       "$F\r\n"
       "<title>EtekCity Light Controller</title>"
-      "<h3>EtekCity Light Controller</h3>"
-      "<br>"
       "<form>"
       "<table border='1'><caption>Remote 1414</caption>"
     ), okHeader
@@ -42,6 +40,7 @@ static void homePage(BufferFiller& buf) {
   }
   buf.emit_p(
     PSTR(
+      "<br><a href='code'>Direct code input</a>"
       "</table>"
       "</form>"
       "</html>"
