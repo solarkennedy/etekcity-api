@@ -51,19 +51,24 @@ static void homePage(BufferFiller& buf) {
 
 static void apiPage(const char* data, BufferFiller& buf) {
   int outlet_num = data[6] - 48;
-  bool desired_state;
+  int desired_state_offset;
 
   char letter = data[9];
   Serial.println(letter);
-  if (letter == 110) // "n"
-    desired_state = OFF;
-  else if (letter == 102) // "f"
-    desired_state == ON;
+  if (letter == 110) { // "n"
+    Serial.println("User asked to turn it ON");
+    desired_state_offset = 0;
+  }
+  else if (letter == 102) { // "f"
+    Serial.println("User asked to turn it OFF");
+    desired_state_offset = 9;
+  }
   else
     return page400(buf, data);
 
-  long code = calculateCode(outlet_num, desired_state);
-  Serial.print("Sending code: "); Serial.print(code);
+  Serial.print("Desired State offset:"); Serial.println(desired_state_offset);
+  long code = calculateCode(outlet_num, desired_state_offset);
+  sendCode(code);
 
   buf.emit_p(
     PSTR(
