@@ -10,7 +10,11 @@ Arduino to RF bridge to make an HTTP API to control EtekCity Remote Control Outl
 * ENC28J60 Module (I like the kind with built-in 5v converters)
 * [Etekcity Wireless Outlets](http://www.amazon.com/Etekcity-Wireless-Electrical-Household-Appliances/dp/B00DQELHBS/ref=sr_1_1?ie=UTF8&qid=1456012964&sr=8-1&keywords=etekcity+ZAP)
 
+![etekcity outlets](https://raw.githubusercontent.com/solarkennedy/etekcity-api/master/outlets.jpg)
+
 ### Connections
+
+![breadboard](https://raw.githubusercontent.com/solarkennedy/etekcity-api/master/breadboard.jpg)
 
 ## Software
 
@@ -20,6 +24,8 @@ Arduino to RF bridge to make an HTTP API to control EtekCity Remote Control Outl
 * [rc-switch](https://github.com/sui77/rc-switch)
 
 ## API
+
+![web interface](https://raw.githubusercontent.com/solarkennedy/etekcity-api/master/web%20interface.png)
 
     curl http://arduino-ip/?N=(Off|On)
     # Where N is the outlet number
