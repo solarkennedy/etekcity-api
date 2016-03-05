@@ -1,4 +1,6 @@
 # etekcity-api
+[![Build Status](https://travis-ci.org/solarkennedy/etekcity-api.svg?branch=master)](https://travis-ci.org/solarkennedy/etekcity-api)
+
 Arduino to RF bridge to make an HTTP API to control EtekCity Remote Control Outlets
 
 ## Build It
