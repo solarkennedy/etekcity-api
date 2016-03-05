@@ -52,6 +52,8 @@ void loop() {
       homePage(bfill);
     else if (strncmp("GET /?", data, 6) == 0)
       apiPage(data, bfill);
+    else if (strncmp("GET /help/ ", data, 11) == 0)
+      helpPage(bfill);
     else if (strncmp("GET /code/ ", data, 11) == 0)
       codeHomePage(bfill);
     else if (strncmp("GET /code/?", data, 11) == 0)

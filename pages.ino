@@ -17,15 +17,17 @@ static void page400(BufferFiller& buf, const char* data) {
       "\r\n"
       "400: Sorry no hints. Check serial output. Microcontroller web stacks are hard.\r\n"
     ));
-
 }
+
 
 static void homePage(BufferFiller& buf) {
   buf.emit_p(
     PSTR(
       "$F\r\n"
+      "<a href='/help/'>Help</a>"
+      " <a href='/code/'>Direct RF Code Input</a>"
       "<form>"
-      "<table border='1'><caption>Remote 1414</caption>"
+      "1414:<table border='1'>"
     ), okHeader
   );
   for (byte i = 1; i <= 5; ++i) {
@@ -38,12 +40,25 @@ static void homePage(BufferFiller& buf) {
         "</tr>"
       ), i, i, i);
   }
+}
+
+
+static void helpPage(BufferFiller& buf) {
   buf.emit_p(
     PSTR(
-      "<br><a href='code/'>Direct code input</a>"
-      "</table>"
-      "</form>"
-      "</html>"
+      "$F\r\n"
+    ), okHeader
+  );
+  buf.emit_p(
+    PSTR(
+      "<a href='https://github.com/solarkennedy/etekcity-api'>Source Code</a><br>"
+      "<a href='/code/'>Direct RF Code Input</a><br><br>"
+      "API: <pre>"
+      "# Turn a particular outlet NUM on or off:\n"
+      "curl http://host/?NUM=(On|Off)\n"
+      "\n"
+      "# Send a direct RF code (see label on outlets)\n"
+      "curl http://host/code/?code=123\n"
     ));
 }
 
