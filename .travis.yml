@@ -1,20 +1,23 @@
 language: python
 python:
-    - "2.7"
+  - "2.7"
 
 # Cache PlatformIO packages using Travis CI container-based infrastructure
 sudo: false
 cache:
-    directories:
-        - "~/.platformio"
+  directories:
+    - "~/.platformio"
 
-#env:
-#    - PLATFORMIO_CI_SRC=path/to/test/file.c
+env:
+  - PLATFORMIO_CI_SRC=.
 
 install:
-    - pip install -U platformio
-    # http://platformio.org/#!/lib/show/425/EtherCard
-    - platformio lib install 425
+  - pip install -U platformio
+  # http://platformio.org/#!/lib/show/425/EtherCard
+  - platformio lib install 425
+  # rc-switch install
+  - wget https://github.com/sui77/rc-switch/archive/master.zip -O /tmp/rc-switch.zip
+  - unzip /tmp/rc-switch.zip -d /tmp/
 
 script:
-    - platformio ci --board=sparkfun_promicro16
+  - platformio ci --lib="/tmp/rc-switch-master" --board=sparkfun_promicro16
