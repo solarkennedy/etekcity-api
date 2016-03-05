@@ -29,11 +29,18 @@ Arduino to RF bridge to make an HTTP API to control EtekCity Remote Control Outl
 
 ![web interface](https://raw.githubusercontent.com/solarkennedy/etekcity-api/master/web%20interface.png)
 
-    curl http://arduino-ip/?N=(Off|On)
+See the `/help/` page for more API docs. Here is a snippet:
+
     # Where N is the outlet number
+    curl http://arduino-ip/?N=(Off|On)
+
+    # Send out an arbitrary RF code:
+    curl http://arduino-ip/code/?code=NUM
 
 ## TODO
 
+ - [x] Raw code API
+ - [x] Online help
  - [ ] Multi remote capability
  - [ ] Use eeprom to store remote number or outlet offset instead of DEFINE
  - [ ] Better web interface
