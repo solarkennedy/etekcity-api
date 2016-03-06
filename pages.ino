@@ -79,16 +79,20 @@ static void codeHomePage(BufferFiller& buf) {
 }
 
 
-static long getCodeArg(const char* data, const char* key, int value = -1) {
+static unsigned long getCodeArg(const char* data, const char* key, unsigned long value = -1) {
+  // This magic number 10 comes from the possibility of having 9 digits in the RF code
   char code[10];
-  if (ether.findKeyVal(data + 7, code, sizeof code, key) > 0)
+  // This magic number 10 comes from the offset of "GET /code/?"
+  if (ether.findKeyVal(data + 10, code, sizeof code, key) > 0)
+    //Serial.print("Found a k/v string in the url: "); Serial.println(code);
+    //Serial.print("Debug: My code is: '"); Serial.print(code); Serial.println("'");
     value = atol(code);
   return value;
 }
 
 
 static void codePage(const char* data, BufferFiller& buf) {
-  long code = getCodeArg(data, "code", 0);
+  unsigned long code = getCodeArg(data, "code", 0);
   Serial.print("Code was: "); Serial.println(code);
 
   if (code == -1 || code == 0)
@@ -128,7 +132,7 @@ static void apiPage(const char* data, BufferFiller& buf) {
     return page400(buf, data);
 
   Serial.print("Desired State offset:"); Serial.println(desired_state_offset);
-  long code = calculateCode(outlet_num, desired_state_offset);
+  unsigned long code = calculateCode(outlet_num, desired_state_offset);
   sendCode(code);
 
   buf.emit_p(
