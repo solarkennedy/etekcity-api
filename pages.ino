@@ -121,11 +121,11 @@ static void apiPage(const char* data, BufferFiller& buf) {
   char letter = data[9];
   Serial.println(letter);
   if (letter == 110) { // "n"
-    Serial.println("User asked to turn it ON");
+    Serial.println(PSTR("User asked to turn it ON"));
     desired_state_offset = 0;
   }
   else if (letter == 102) { // "f"
-    Serial.println("User asked to turn it OFF");
+    Serial.println(PSTR("User asked to turn it OFF"));
     desired_state_offset = 9;
   }
   else

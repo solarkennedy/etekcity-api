@@ -1,5 +1,4 @@
-long calculateCode(int outlet_num, int desired_state) {
-
+unsigned long calculateCode(int outlet_num, int desired_state) {
   int outlet_offset;
   switch (outlet_num) {
     case 1: outlet_offset = 0; break;
@@ -9,16 +8,17 @@ long calculateCode(int outlet_num, int desired_state) {
     case 5: outlet_offset = 8144; break;
   }
 
-  Serial.println("Code calculation:");
-  Serial.print("Remote Offset: "); Serial.println(remote1_offset);
-  Serial.print("Outlet: "); Serial.println(outlet_num);
-  Serial.print("Outlet Offset: "); Serial.println(outlet_offset);
-  Serial.print("Desired state offset: "); Serial.println(desired_state);
+  Serial.println(PSTR("Code calculation:"));
+  Serial.print(PSTR("Remote Offset: ")); Serial.println(remote1_offset);
+  Serial.print(PSTR("Outlet: ")); Serial.println(outlet_num);
+  Serial.print(PSTR("Outlet Offset: ")); Serial.println(outlet_offset);
+  Serial.print(PSTR("Desired state offset: ")); Serial.println(desired_state);
   return remote1_offset + outlet_offset + desired_state;
 }
 
-void sendCode(long code) {
-  Serial.print("Sending code: "); Serial.println(code);
+void sendCode(unsigned long code) {
+  Serial.print(PSTR("Sending code: ")); Serial.println(code);
+  // Magic number 24 comes from 24 bit RF codes for Etekcity outlets
   mySwitch.send(code, 24);
 }
 
