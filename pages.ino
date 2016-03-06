@@ -6,8 +6,8 @@ const char okHeader[] PROGMEM =
 
 
 static void page400(BufferFiller& buf, const char* data) {
-  Serial.println("400");
-  Serial.println("Data was: ");
+  // TODO: Accept some sort of error hint
+  Serial.println(PSTR("400! Data was: "));
   Serial.print(data);
   buf.emit_p(
     PSTR(
@@ -92,11 +92,14 @@ static unsigned long getCodeArg(const char* data, const char* key, unsigned long
 
 
 static void codePage(const char* data, BufferFiller& buf) {
+  // Searches for the "code=" URL query param and returns the value
   unsigned long code = getCodeArg(data, "code", 0);
-  Serial.print("Code was: "); Serial.println(code);
+  Serial.print(PSTR("Code was: ")); Serial.println(code);
 
-  if (code == -1 || code == 0)
+  if (code == -1 || code == 0) {
+    Serial.println(PSTR("Couldn't find the code string in the URL?"));
     return page400(buf, data);
+  }
 
   sendCode(code);
   buf.emit_p(
@@ -128,10 +131,12 @@ static void apiPage(const char* data, BufferFiller& buf) {
     Serial.println(PSTR("User asked to turn it OFF"));
     desired_state_offset = 9;
   }
-  else
+  else {
+    Serial.println(PSTR("Couldn't determine what the desired state was. 400'ing."));
     return page400(buf, data);
+  }
 
-  Serial.print("Desired State offset:"); Serial.println(desired_state_offset);
+  Serial.print(PSTR("Desired State offset:")); Serial.println(desired_state_offset);
   unsigned long code = calculateCode(outlet_num, desired_state_offset);
   sendCode(code);
 
@@ -144,7 +149,6 @@ static void apiPage(const char* data, BufferFiller& buf) {
       "Sending code: $L<br>"
     ), okHeader, outlet_num, code
   );
-
   buf.emit_p(
     PSTR(
       "</html>"

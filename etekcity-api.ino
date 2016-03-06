@@ -3,7 +3,7 @@
 
 RCSwitch mySwitch = RCSwitch();
 
-// TODO handle multiple remotes
+// TODO handle multiple remotes. I can't figure out a pattern in these magic numbers
 #define remote1_offset 5330227
 
 static BufferFiller bfill;  // used as cursor while filling the buffer
@@ -16,19 +16,20 @@ byte Ethernet::buffer[850]; // tcp/ip send and receive buffer
 void setup() {
   Serial.begin(115200);
   Serial.println(PSTR("\nEtekCity Light Controller"));
+  Serial.println(PSTR("Code: https://github.com/solarkennedy/etekcity-api"));
 
   if (ether.begin(sizeof Ethernet::buffer, mymac) == 0)
-    Serial.println(PSTR("Failed to access Ethernet controller"));
+    Serial.println(PSTR("Failed to access Ethernet controller. Check SPI connections"));
 
   if (!ether.dhcpSetup())
-    Serial.println(PSTR("DHCP failed"));
+    Serial.println(PSTR("DHCP failed. Check Link?"));
 
   ether.printIp("IP:  ", ether.myip);
   ether.printIp("GW:  ", ether.gwip);
   ether.printIp("DNS: ", ether.dnsip);
 
   Serial.println(PSTR("Network initialized\n"));
-  ether.printIp("Got to http://", ether.myip);
+  ether.printIp("Go to http://", ether.myip);
 
   // Switch transmitter settings specific to Etekcity outlets
   mySwitch.enableTransmit(2);
